@@ -130,20 +130,6 @@ def clean_chat_log(line):
 
 shutting_off_message = "[#f]Shutting off"
 
-def handle_chat_message(line, cleaned_line):
-    global running
-    if 'hey Vinibot off' in cleaned_line.lower():
-        print(f"Shutdown Password: {SHUTDOWN_PASSWORD}")
-        return
-
-    if SHUTDOWN_PASSWORD in line:
-        time.sleep(1)
-        send_message_to_chatgpt("Shutting down! Say a short and devious goodbye.", [])
-        time.sleep(1)
-        log_message_to_file(shutting_off_message)
-        send_message_to_chatgpt(shutting_off_message, [])
-        running = False
-
 def detect_vinibot_questions(file_path):
     global running
     running = True
@@ -172,8 +158,6 @@ def detect_vinibot_questions(file_path):
                     if (
                         vinibot_pattern.match(message_part)
                         and 'vinibot' not in username_part.lower()
-                        and 'hey vinibot off' not in message_part.lower()
-                        and SHUTDOWN_PASSWORD not in message_part
                     ):
                         question = line.replace("[I] [Chat] ", "").strip()
                         print(f"Q: {question}")
