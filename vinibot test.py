@@ -163,8 +163,6 @@ def detect_vinibot_questions(file_path):
                         print(f"Q: {question}")
                         send_message_to_chatgpt(message_part, list(context_lines))
 
-                handle_chat_message(line, cleaned_line)
-
                 if connected_pattern.search(line):
                     for welcome_player in load_list_from_file(WELCOME_PLAYERS_PATH):
                         if welcome_player.lower() in line.lower():
